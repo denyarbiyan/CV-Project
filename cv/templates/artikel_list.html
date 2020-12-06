@@ -1,0 +1,13 @@
+
+{% for obj in objek %}
+
+{% if obj.image%}
+    <img src="{{ obj.image.url }}" alt="">
+{% endif %}
+
+<li><a href="{% url 'detail' obj.slug %}">{{ obj.judul}}</a></li>
+
+<ul><b>{{ obj.isi}}</b></ul>
+<ul>create_at : {{ obj.create_at }}</ul>
+
+{% endfor %}

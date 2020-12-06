@@ -1,0 +1,8 @@
+
+{% if objek.image %}
+    <img src="{{ objek.image.url }}" alt="">
+{% endif %}
+<h2>{{objek.judul}}</h2>
+<p>{{objek.isi}}</p>
+
+<p>Time : {{ objek.create_at }}</p>
