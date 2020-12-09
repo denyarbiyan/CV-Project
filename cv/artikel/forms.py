@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import ArtikelModel
+from .models import ArtikelModel, CommentModel
 
 class ArtikelForm(forms.Form):
     judul = forms.CharField()
@@ -21,3 +21,9 @@ class ArtikelModelForm(forms.ModelForm):
         if qs.exists():
             raise forms.ValidationError("Judul yang anda masukan sudah ada, silahkan masukan judul baru")
         return judul
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = CommentModel
+        fields = ["name", "content"]

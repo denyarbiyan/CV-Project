@@ -6,3 +6,25 @@
 <p>{{objek.isi}}</p>
 
 <p>Time : {{ objek.create_at }}</p>
+
+<br><hr>
+<h3>Comment ....</h3>
+
+{% if not objek.comment.all %}
+    Belum ada Komen, silahkan tambah komen <a href="#">Add Comment</a>
+
+{% else %}
+    {% for comment in objek.comment.all %}
+        <strong>{{ comment.name }}</strong>
+        <strong>{{ comment.create_data }}</strong>
+        <ul>{{ comment.content | linebreaks}}</ul>
+        <a href="">Balas</a>
+        <br><hr>
+    {% endfor %}
+{% endif %}
+<br/>
+
+<form action="." method="POST">{% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Post</button>
+</form>

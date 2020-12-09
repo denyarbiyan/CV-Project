@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import ArtikelForm, ArtikelModelForm
+from .forms import ArtikelForm, ArtikelModelForm, CommentForm
 from .models import ArtikelModel
 # Create your views here.
 
@@ -21,13 +21,20 @@ def CreateArtikelForm(request, *args, **kwargs):
 
 
 def DetailArtikel(request, slug):
-    qs = ArtikelModel.objects.filter(slug=slug)
-    if qs.count() == 0:
-        raise Http404
-    obj = qs.first()
-    # obj = get_object_or_404(ArtikelModel, slug=slug)
-
-    return render(request, "artikel_detail.html", {"objek": obj})
+    # qs = ArtikelModel.objects.filter(slug=slug)
+    # if qs.count() == 0:
+    #     raise Http404
+    # obj = qs.first()
+    obj = get_object_or_404(ArtikelModel, slug=slug)
+    comment_form = CommentForm(request.POST or None)
+    if comment_form.is_valid():
+        new_com = comment_form.save(commit=False)
+        new_com.judul = obj
+        new_com.save()
+        return redirect("detail", slug = obj.slug)
+    else:
+        comment_form = CommentForm()
+    return render(request, "artikel_detail.html", {"objek": obj, "comment_form": comment_form})
 
 def UpdateArtikel(request, slug):
     # qs = ArtikelModel.objects.filter(slug=slug)
