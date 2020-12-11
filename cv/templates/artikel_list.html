@@ -7,7 +7,19 @@
 
 <li><a href="{% url 'detail' obj.slug %}">{{ obj.judul}}</a></li>
 
-<ul><b>{{ obj.isi}}</b></ul>
+<ul><b>{{ obj.isi}} </b></ul>
 <ul>create_at : {{ obj.create_at }}</ul>
 
 {% endfor %}
+
+{% if objek.has_previous %}
+    <a href="?{{ page_request_var }}={{ objek.previous_page_number }}">Previous</a>
+{% endif %}
+
+<span class="current">
+    Page {{ objek.number }} of {{ objek.paginator.num_pages }}.
+</span>
+
+{% if objek.has_next %}
+    <a href="?{{ page_request }}={{ objek.next_page_number }}">Next</a>
+{% endif %}

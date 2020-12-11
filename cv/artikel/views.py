@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -60,8 +61,23 @@ def DeleteArtikel(request, slug):
 
 def ListArtikel(request, *args, **kwargs):
     obj = ArtikelModel.objects.all()
+    paginator = Paginator(obj, 2)
+    
+    page_request = "page"
+    page = request.GET.get(page_request)
+    try:
+        obj = paginator.page(page)
+    except PageNotAnInteger:
+        obj = paginator.page(1)
+    except EmptyPage:
+        obj = paginator.page(paginator.num_pages)
 
-    return render(request, 'artikel_list.html', {'objek': obj})
+    context = {
+        "objek": obj,
+        "page_request": page_request
+    }
+
+    return render(request, 'artikel_list.html', context)
 
 
 def base(request, *args, **kwargs):

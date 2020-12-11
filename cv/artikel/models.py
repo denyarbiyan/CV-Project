@@ -21,6 +21,9 @@ class ArtikelModel(models.Model):
             self.slug = slugify(self.judul)
         super(ArtikelModel, self).save(*args, **kwargs)
 
+    class Meta:
+        ordering = ["-create_at", "-update_at"]
+
 
 
 # comment models
