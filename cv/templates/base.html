@@ -5,13 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+    {% block judul %}{% endblock %}
+        <title>Document</title>
+    
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
 </head>
 <body>
+    {% include 'navbar.html' %}
     {% block content %}
+    <div class="container">
+        
         <h1>Hallow django</h1>
+    </div>
+
+
     {% endblock %}
+
 </body>
 </html>
