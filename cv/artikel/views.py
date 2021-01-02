@@ -12,7 +12,7 @@ def CreateArtikelForm(request, *args, **kwargs):
         # print(form.cleaned_data)
         obj = form.save()
         # image = request.FILES['image']
-        # obj.image = image
+        # obj.image = image 
         obj.save()
         # my_form = form.cleaned_data
         # ArtikelModel.objects.create(**my_form)
@@ -22,16 +22,13 @@ def CreateArtikelForm(request, *args, **kwargs):
 
 
 def DetailArtikel(request, slug):
-    # qs = ArtikelModel.objects.filter(slug=slug)
-    # if qs.count() == 0:
-    #     raise Http404
-    # obj = qs.first()
     obj = get_object_or_404(ArtikelModel, slug=slug)
     comment_form = CommentForm(request.POST or None)
     if comment_form.is_valid():
         new_com = comment_form.save(commit=False)
         new_com.judul = obj
         new_com.save()
+        print(obj)
         return redirect("detail", slug = obj.slug)
     else:
         comment_form = CommentForm()

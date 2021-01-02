@@ -23,17 +23,16 @@
     <ul class="pagination">
         <li class="page-item">
             {% if objek.has_previous %}
-                <a class="page-link" href="?{{ page_request_var }}={{ objek.previous_page_number }}">Previous</a>
+                <a class="page-link" href="?{{ page_request }}={{ objek.previous_page_number }}">Previous</a>
             {% endif %}
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
+        </li>
         <li class="page-item active" aria-current="page">
-        <span class="page-link">
-            <span class="current">
+            <span class="page-link">
+                <span class="current">
                 Page {{ objek.number }} of {{ objek.paginator.num_pages }}.
+                </span>
             </span>
-        </span>
-    </li>
+        </li>
         <li class="page-item">
             <li class="page-item">
                 {% if objek.has_next %}
